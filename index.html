@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Control</title>
+    <!-- Firebase Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom right, #e3f2fd, #ffebee);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: #37474f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:nth-child(1) {
+            background: #81d4fa;
+            color: #01579b;
+        }
+
+        button:nth-child(2) {
+            background: #80cbc4;
+            color: #004d40;
+        }
+
+        button:nth-child(3) {
+            background: #ffab91;
+            color: #bf360c;
+        }
+
+        button:nth-child(4) {
+            background: #ffcc80;
+            color: #e65100;
+        }
+
+        button:hover {
+            background: #ffffff;
+            color: #37474f;
+        }
+
+        .counter {
+            margin-top: 40px;
+            font-size: 1.5rem;
+            color: #37474f;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #757575;
+        }
+
+        footer a {
+            color: #0277bd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Robot Base Control</h1>
+    <div class="buttons">
+        <button onclick="sendDirection('forward')">Forward</button>
+        <button onclick="sendDirection('left')">Left</button>
+        <button onclick="sendDirection('right')">Right</button>
+        <button onclick="sendDirection('backward')">Backward</button>
+    </div>
+    <div class="counter" id="counter">Total Directions: 0</div>
+
+    <footer>
+        <p>Developed by Sarah Sadik </p>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpZJ-Cr7PtSjK_Rkn-Z1BvyLPSCpri58Q",
+            authDomain: "robotcontrol-a8c92.firebaseapp.com",
+            databaseURL: "https://robotcontrol-a8c92-default-rtdb.firebaseio.com",
+            projectId: "robotcontrol-a8c92",
+            storageBucket: "robotcontrol-a8c92.firebasestorage.app",
+            messagingSenderId: "242759410771",
+            appId: "1:242759410771:web:5ca2e4a107ea88ee0cd2a6",
+            measurementId: "G-E68WN42YXY"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Reference to the 'directions' node in the database
+        const directionsRef = database.ref('directions');
+
+        // Function to send direction data to Firebase
+        function sendDirection(direction) {
+            const timestamp = new Date().toISOString();
+            directionsRef.push({
+                direction: direction,
+                timestamp: timestamp
+            })
+            .then(() => alert(`Direction saved: ${direction}`))
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Display the total number of directions
+        directionsRef.on('value', (snapshot) => {
+            const directions = snapshot.val();
+            const count = directions ? Object.keys(directions).length : 0;
+            document.getElementById('counter').innerText = `Total Directions: ${count}`;
+        });
+    </script>
+</body>
+</html>
