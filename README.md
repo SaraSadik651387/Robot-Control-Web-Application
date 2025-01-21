@@ -40,7 +40,7 @@ robot_control/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone <https://github.com/SaraSadik651387/Robot-Control-Web-Application)>
 cd robot_control
 ```
 
@@ -61,7 +61,7 @@ composer install
 2. Place the project folder in the `htdocs` directory (for XAMPP).
 3. Access the web interface:
    ```
-   http://localhost/robot_control/index.html
+   http://127.0.0.1:5500/index.html
    ```
 4. Test the PHP script:
    ```
