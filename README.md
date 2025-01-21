@@ -72,7 +72,14 @@ composer install
 
 ## Usage
 1. Open the web interface in your browser.
+   ![Image](https://github.com/user-attachments/assets/5d8ddf93-689b-4b)
+
+![Image](https://github.com/user-attachments/assets/216f8b54-bc9f-4be7-b6f0-ea9db7af6de2)
+![Image](https://github.com/user-attachments/assets/33653af4-311e-441c-adcb-fe833f6011d1)
+![Image](https://github.com/user-attachments/assets/0731ef62-c757-4c3d-a9fb-02d2244dd738)
+
 2. Click the directional buttons to log robot movements to Firebase.
+   
 3. Use the PHP script to view the latest logged direction and timestamp.
 
 ---
